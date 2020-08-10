@@ -1,0 +1,28 @@
+<div class="col-12 col-sm-6 col-lg-3">
+
+    <section class="product-box">
+        <a href="/products/detail/<%= product.id %>">
+            <figure class="product-box_image">
+                <% if (product.image) { %>
+
+                    <img src="/images/products/<%= product.image %>" alt="imagen de producto">
+                    <%} else { %>
+                        <img src="/images/products/default-image.png" alt="imagen de producto">
+                        <%} %>
+
+            </figure>
+            <article class="product-box_data">
+                <script>
+                    document.write("<h2>$ " + toThousand(parseInt('<%= product.price * (1-product.discount/100) %>')) + "</h2>");
+                </script>
+                <% if (product.discount  >0) { %>
+                    <span><%= product.discount %> % OFF</span>
+                    <% } %>
+                        <p>
+                            <%= product.name %>
+                        </p>
+                        <i class="fas fa-truck"></i>
+            </article>
+        </a>
+    </section>
+</div>

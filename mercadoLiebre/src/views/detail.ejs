@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<!-- Include Head -->
+<%- include('partials/head', {title: product.name}) %>
+
+    <body>
+        <!-- Header -->
+        <%- include('partials/headerNavbar', {usuarioLogueado: usuarioLogueado}) %>
+            <!-- /Header -->
+
+            <!-- product detail -->
+            <div class="container products-wrapper">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="products-title">Detalle del producto:
+                            <%= product.name %>
+                        </h2>
+                    </div>
+                </div>
+                <div class="product-detail">
+                    <div class="row">
+                        <div class="col-12 col-lg-8">
+                            <img src="/images/products/<%= product.image %>" alt="product image" class="product-detail-img">
+                            <p class="product-detail-description">
+                                <%= product.description %>
+                            </p>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            <article class="product-detail-info">
+                                <h2 class="product-detail-title">
+                                    <%= product.name %>
+                                </h2>
+
+                                <p class="product-detail-price small">
+                                    <script>
+                                        document.write("<span>$ " + toThousand(parseInt('<%= product.price  %>')) + "</span>");
+                                    </script>
+
+                                    <% if (product.discount  >0) { %>
+                                        <b><%= product.discount %> % OFF</b>
+                                        <% } %>
+                                </p>
+                                <p class="product-detail-price">
+                                    <script>
+                                        document.write("$ " + toThousand(parseInt('<%= product.price * (1-product.discount/100) %>')));
+                                    </script>
+                                </p>
+
+                                <ul class="actions-list">
+                                    <li>
+                                        <i class="fas fa-credit-card"></i>
+                                        <p>Pagá en 12 cuotas sin interes</p>
+                                    </li>
+                                    <li>
+                                        <i class="fas fa-store"></i>
+                                        <p>Retiro gratis en locales del vendedor</p>
+                                    </li>
+                                </ul>
+
+                                <a href="#" class="buy-now-button">COMPRAR AHORA</a>
+                                <hr>
+                                <div class="row d-flex  p-0">
+                                    <a href="/products/edit/<%= product.id %>" class="action-button edit col-5 ml-3 mr-3">EDITAR</a>
+                                    <form class="col-6" action="/products/delete/?_method=DELETE" method="POST" style="display: inline-flex">
+                                        <input type="text" id="id" name="id" class="form-input" value="<%= product.id %>" style="display: none;">
+                                        <button type="submit" class="action-button delete col-12 ">ELIMINAR</button>
+                                    </form>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /product detail -->
+
+            <!-- footer -->
+            <%- include('partials/footer') %>
+                <!-- /footer -->
+
+    </body>
+
+</html>
